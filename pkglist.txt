@@ -1,0 +1,16 @@
+base-devel
+firefox
+foot
+git
+kitty
+lsd
+man-db
+neovim
+openssh
+polkit
+ranger
+stow
+sway
+ttf-jetbrains-mono-nerd
+vim
+zsh

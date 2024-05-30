@@ -15,6 +15,8 @@ alias ip='ip -c'
 alias rm='rm -i'
 alias x='ranger'
 alias h='htop'
+alias pacs='pacman -Ss'
+alias paci='sudo pacman -S'
 
 setopt COMPLETE_ALIASES
 setopt HIST_FIND_NO_DUPS
