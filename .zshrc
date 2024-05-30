@@ -1,32 +1,47 @@
-HISTFILE=~/.histfile
-HISTSIZE=10000
-SAVEHIST=10000
-setopt autocd extendedglob nomatch
-unsetopt beep notify
-bindkey -v
-# End of lines configured by zsh-newuser-install
-# The following lines were added by compinstall
-zstyle :compinstall filename '/home/asdf/.zshrc'
+#  _____    _
+# |__  /___| |__  _ __ ___
+#   / // __| '_ \| '__/ __|
+#  / /_\__ \ | | | | | (__
+# /____|___/_| |_|_|  \___|
+# Aliases for a few useful commands
 
-autoload -Uz compinit
+alias mirrorUpdate='reflector --country us --latest 15 --protocol https --sort rate --save /etc/pacman.d/mirrorlist --verbose'
+alias ls='lsd'
+alias l='ls -l'
+alias la='ls -a'
+alias lla='ls -la'
+alias lt='ls --tree'
+alias ip='ip -c'
+alias rm='rm -i'
+alias x='ranger'
+alias h='htop'
+
+setopt COMPLETE_ALIASES
+setopt HIST_FIND_NO_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_SPACE
+setopt appendhistory
+setopt autocd
+setopt extendedglob
+setopt incappendhistory
+setopt nomatch
+setopt notify
+setopt sharehistory
+
+unsetopt beep
+bindkey -e
+autoload -Uz compinit promptinit bashcompinit
 compinit
+promptinit
+bashcompinit
+zstyle :compinstall filename '$HOME/.zshrc'
 
-autoload -Uz vcs_info
-precmd() { vcs_info }
 
-parse_git_dirty() {
-  git_status="$(git status 2> /dev/null)"
-  [[ "$git_status" =~ "Changes to be committed:" ]] && echo -n "%F{green}·%f"
-  [[ "$git_status" =~ "Changes not staged for commit:" ]] && echo -n "%F{yellow}·%f"
-  [[ "$git_status" =~ "Untracked files:" ]] && echo -n "%F{red}·%f"
-}
+plugins=(
+    colorize
+    git
+    history-substring-search
+    safe-paste
+    virtualenv
+)
 
-setopt prompt_subst
-
-NEWLINE=$'\n'
-
-autoload -Uz vcs_info # enable vcs_info
-precmd () { vcs_info } # always load before displaying the prompt
-zstyle ':vcs_info:git*' formats ' ↣ (%F{254}%b%F{245})' # format $vcs_info_msg_0_
-
-PS1='%F{254}%n%F{245} ↣ %F{153}%(5~|%-1~/⋯/%3~|%4~)%F{245}${vcs_info_msg_0_} $(parse_git_dirty)$NEWLINE%F{254}$%f '
