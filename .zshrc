@@ -4,6 +4,8 @@
 #  / /_\__ \ | | | | | (__
 # /____|___/_| |_|_|  \___|
 # Aliases for a few useful commands
+#
+ZSH_THEME='robbyrussell'
 
 alias mirrorUpdate='reflector --country us --latest 15 --protocol https --sort rate --save /etc/pacman.d/mirrorlist --verbose'
 alias ls='lsd'
@@ -47,3 +49,5 @@ plugins=(
     virtualenv
 )
 
+export ZSH="$HOME/.oh-my-zsh"
+source $ZSH/oh-my-zsh.sh
