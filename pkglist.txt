@@ -32,5 +32,6 @@ wireplumber
 wlr-randr
 yay-bin
 yay-bin-debug
+yazi
 zram-generator
 zsh
