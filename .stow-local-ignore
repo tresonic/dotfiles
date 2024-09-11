@@ -2,6 +2,7 @@
 scripts
 
 install.sh
+update_pkglist.sh
 pkglist.txt
 pkglist-aur.txt
 
