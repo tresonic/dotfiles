@@ -3,10 +3,13 @@
 set -euo pipefail
 
 # install yay
-git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si && cd .. && rm -rf yay-bin
+if ! command -v yay &> /dev/null
+then
+  git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si && cd .. && rm -rf yay-bin
+fi
 
 # install packages
-sudo yay -S -needed - < pkglist.txt
+yay -S --needed - < pkglist.txt
 
 # install oh-my-zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
