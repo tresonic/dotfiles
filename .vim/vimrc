@@ -1,0 +1,131 @@
+""""""
+" UI "
+""""""
+
+set nocompatible " disable vi compatibility
+set autoread " automatically load changed files
+set title " show the filename in the window titlebar
+set encoding=utf-8 " set encoding
+set backupdir=~/.vim/backup " directories for swp files
+set directory=~/.vim/backupf
+set showcmd " display incomplete commands at the bottom
+set mouse=a " mouse support
+set number " hybrid line numbers
+set relativenumber 
+set showmatch " show matching parens
+set diffopt+=iwhite " ignore whitespace in diff mode
+set whichwrap=bs<>[] " Be able to arrow key and backspace across newlines
+set laststatus=2 " Status bar
+set showbreak=>\ \ \  " show '>   ' at the beginning of lines that are automatically wrapped
+set tabpagemax=100 " let vim open up to 100 tabs at once
+set wildignorecase " case-insensitive filename completion
+set tabstop=4           " width that a <TAB> character displays as
+set expandtab           " convert <TAB> key-presses to spaces
+set shiftwidth=4        " number of spaces to use for each step of (auto)indent
+set softtabstop=4       " backspace after pressing <TAB> will remove up to this many spaces
+
+" remember last cursor position
+autocmd BufReadPost *
+	\ if line("'\"") > 0 && line("'\"") <= line("$") |
+	\ 	exe "normal g`\"" |
+	\ endif
+
+
+"set cursorline " highlight cursor line
+"set textwidth=80 " wrapping stuff
+"set colorcolumn=80
+
+"""""""""""""
+" Searching "
+"""""""""""""
+
+set hlsearch "when there is a previous search pattern, highlight all its matches
+set incsearch "while typing a search command, show immediately where the so far typed pattern matches
+set ignorecase "ignore case in search patterns
+set smartcase "override the 'ignorecase' option if the search pattern contains uppercase characters
+set gdefault "imply global for new searches
+
+" turn off search highlighting with <CR> (carriage-return)
+nnoremap <CR> :nohlsearch<CR><CR>
+
+"""""""""""""
+" Indenting "
+"""""""""""""
+
+" When auto-indenting, use the indenting format of the previous line
+set copyindent
+" When on, a <Tab> in front of a line inserts blanks according to 'shiftwidth'.
+" 'tabstop' is used in other places. A <BS> will delete a 'shiftwidth' worth of
+" space at the start of the line.
+set smarttab
+" Copy indent from current line when starting a new line (typing <CR> in Insert
+" mode or when using the "o" or "O" command)
+set autoindent
+" Automatically inserts one extra level of indentation in some cases, and works
+" for C-like files
+set smartindent
+
+"""""""""
+" Theme "
+"""""""""
+
+syntax enable
+set background=dark "uncomment this if your terminal has a dark background
+colorscheme slate
+
+
+"""""""""""""""""""""
+" Language-Specific "
+"""""""""""""""""""""
+
+" load the plugin and indent settings for the detected filetype
+filetype plugin indent on
+
+" Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
+au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru} set ft=ruby
+au BufRead,BufNewFile *.html.erb set ft=eruby
+
+" Add json syntax highlighting
+au BufNewFile,BufRead *.json set ft=json syntax=javascript
+
+" auto-reload vimrc
+autocmd! bufwritepost vimrc source ~/.vim/vimrc
+
+""""""""""""""""""""""""
+" Editing              "
+""""""""""""""""""""""""
+
+" Move a line of text using ALT+[jk] or Command+[jk] on mac
+" map <Esc>j <A-j>
+" map <Esc>k <A-k>
+nnoremap <C-j> :m .+1<CR>==
+nnoremap <C-k> :m .-2<CR>==
+inoremap <C-j> <Esc>:m .+1<CR>==gi
+inoremap <C-k> <Esc>:m .-2<CR>==gi
+vnoremap <C-j> :m '>+1<CR>gv=gv
+vnoremap <C-k> :m '<-2<CR>gv=gv
+
+" Don't exit visual mode after indenting
+vnoremap > >gv
+vnoremap < <gv
+
+" W sudo save file (useful for handling the permission-denied error)
+command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
+
+
+"""""""""""""""""""""""""
+" Plugins               "
+"""""""""""""""""""""""""
+
+" Install vim-plug automatically
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin('~/.vim/plugged')
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'tpope/vim-surround'
+Plug 'LunarWatcher/auto-pairs'
+call plug#end()
