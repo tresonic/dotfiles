@@ -12,10 +12,18 @@ endif
 call plug#begin('~/.vim/plugged')
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
 Plug 'LunarWatcher/auto-pairs'
+Plug 'bling/vim-bufferline'
 Plug 'junegunn/seoul256.vim'
 call plug#end()
 
+
+" disply bufferline in status line
+let g:bufferline_echo = 0
+autocmd VimEnter *
+\ let &statusline='%{bufferline#refresh_status()}'
+  \ .bufferline#get_status_string()
 
 """"""
 " UI "
@@ -42,6 +50,7 @@ set tabstop=4           " width that a <TAB> character displays as
 set expandtab           " convert <TAB> key-presses to spaces
 set shiftwidth=4        " number of spaces to use for each step of (auto)indent
 set softtabstop=4       " backspace after pressing <TAB> will remove up to this many spaces
+set hidden " allow switching buffers without saving
 
 " remember last cursor position
 autocmd BufReadPost *
@@ -50,9 +59,9 @@ autocmd BufReadPost *
 	\ endif
 
 
-"set cursorline " highlight cursor line
-"set textwidth=80 " wrapping stuff
-"set colorcolumn=80
+" cursorline in insert mode
+:autocmd InsertEnter * set cursorline
+:autocmd InsertLeave * set nocursorline
 
 """""""""""""
 " Searching "
@@ -101,10 +110,6 @@ colorscheme seoul256
 " load the plugin and indent settings for the detected filetype
 filetype plugin indent on
 
-" Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
-au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru} set ft=ruby
-au BufRead,BufNewFile *.html.erb set ft=eruby
-
 " Add json syntax highlighting
 au BufNewFile,BufRead *.json set ft=json syntax=javascript
 
@@ -112,8 +117,11 @@ au BufNewFile,BufRead *.json set ft=json syntax=javascript
 autocmd! bufwritepost vimrc source ~/.vim/vimrc
 
 """"""""""""""""""""""""
-" Editing              "
+" Keymap               "
 """"""""""""""""""""""""
+
+let mapleader = " "
+" set timeoutlen 500
 
 " Move a line of text using ALT+[jk] or Command+[jk] on mac
 " map <Esc>j <A-j>
@@ -132,4 +140,12 @@ vnoremap < <gv
 " W sudo save file (useful for handling the permission-denied error)
 command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 
+" use commentary.vim with Ctrl+/
+noremap <C-_> :Commentary<CR>
 
+" buffer switching
+nnoremap <leader>n :bn<CR>
+nnoremap <leader>p :bp<CR>
+
+" ctrlp.vim open
+let g:ctrlp_map = "<leader>s"
