@@ -7,7 +7,7 @@
 #
 ZSH_THEME='robbyrussell'
 
-source .aliases
+source ~/.aliases
 
 setopt COMPLETE_ALIASES
 setopt HIST_FIND_NO_DUPS

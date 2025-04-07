@@ -33,8 +33,6 @@ set nocompatible " disable vi compatibility
 set autoread " automatically load changed files
 set title " show the filename in the window titlebar
 set encoding=utf-8 " set encoding
-set backupdir=~/.vim/backup " directories for swp files
-set directory=~/.vim/backupf
 set showcmd " display incomplete commands at the bottom
 set mouse=a " mouse support
 set number " hybrid line numbers
@@ -51,6 +49,14 @@ set expandtab           " convert <TAB> key-presses to spaces
 set shiftwidth=4        " number of spaces to use for each step of (auto)indent
 set softtabstop=4       " backspace after pressing <TAB> will remove up to this many spaces
 set hidden " allow switching buffers without saving
+
+" Create the backup and backupf directories if they don't exist
+if !isdirectory(expand('~/.cache/vim/backupf'))
+    call mkdir(expand('~/.cache/vim/backupf'), 'p')
+    call mkdir(expand('~/.cache/vim/backup'), 'p')
+endif
+set backupdir=~/.cache/vim/backup " directories for swp files
+set directory=~/.cache/vim/backupf
 
 " remember last cursor position
 autocmd BufReadPost *
@@ -112,6 +118,7 @@ filetype plugin indent on
 
 " Add json syntax highlighting
 au BufNewFile,BufRead *.json set ft=json syntax=javascript
+au BufNewFile,BufRead *.asy set ft=cpp
 
 " auto-reload vimrc
 autocmd! bufwritepost vimrc source ~/.vim/vimrc
