@@ -148,11 +148,11 @@ vnoremap < <gv
 command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 
 " use commentary.vim with Ctrl+/
-noremap <C-_> :Commentary<CR>
+noremap <leader>c :Commentary<CR>
 
 " buffer switching
 nnoremap <leader>n :bn<CR>
 nnoremap <leader>p :bp<CR>
 
 " ctrlp.vim open
-let g:ctrlp_map = "<leader>s"
+let g:ctrlp_map = "<leader>f"
