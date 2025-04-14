@@ -16,6 +16,10 @@ alias mirrorUpdate='reflector --country de --latest 15 --protocol https --sort r
 alias pacs='pacman -Ss'
 alias paci='sudo pacman -S'
 
+function ytmp3 () { yt-dlp -f 'ba' -x --audio-format mp3 "$@" -o '%(title)s.%(ext)s'; }
+function mkcd () { mkdir -p "$@" && eval cd "\"\$$#\""; }
+
+
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
 	yazi "$@" --cwd-file="$tmp"
@@ -24,3 +28,4 @@ function y() {
 	fi
 	rm -f -- "$tmp"
 }
+
