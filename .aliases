@@ -19,6 +19,10 @@ alias paci='sudo pacman -S'
 function ytmp3 () { yt-dlp -f 'ba' -x --audio-format mp3 "$@" -o '%(title)s.%(ext)s'; }
 function mkcd () { mkdir -p "$@" && eval cd "\"\$$#\""; }
 
+# java run dir
+function jrd() {
+	javac *.java && java $1 || rm -f *.class
+}
 
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
