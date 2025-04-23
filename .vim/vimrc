@@ -153,6 +153,7 @@ noremap <leader>c :Commentary<CR>
 " buffer switching
 nnoremap <leader>n :bn<CR>
 nnoremap <leader>p :bp<CR>
+nnoremap <leader>w :bw<CR>
 
 " ctrlp.vim open
 let g:ctrlp_map = "<leader>f"
