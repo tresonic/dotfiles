@@ -4,10 +4,11 @@ alias lla='ls -la'
 alias lt='ls --tree'
 alias ip='ip -color'
 alias ipa='ip -color -brief address'
-alias rm='rm -i'
 alias h='htop'
 alias z='zellij'
+alias t='send2trash'
 
+alias tv='$EDITOR ~/Sync/shows.txt'
 alias cds='cd ~/Sync/stud/sem6/'
 alias updgr='apt update && apt upgrade && apt autoremove'
 alias mpvp='mpv --really-quiet --mute=yes --loop-playlist'
@@ -15,6 +16,14 @@ alias mpvp='mpv --really-quiet --mute=yes --loop-playlist'
 alias mirrorUpdate='reflector --country de --latest 15 --protocol https --sort rate --save /etc/pacman.d/mirrorlist --verbose'
 alias pacs='pacman -Ss'
 alias paci='sudo pacman -S'
+
+function ytmp3 () { yt-dlp -f 'ba' -x --audio-format mp3 "$@" -o '%(title)s.%(ext)s'; }
+function mkcd () { mkdir -p "$@" && eval cd "\"\$$#\""; }
+
+# java run dir
+function jrd() {
+	javac *.java && java $1 || rm -f *.class
+}
 
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
@@ -24,3 +33,4 @@ function y() {
 	fi
 	rm -f -- "$tmp"
 }
+
