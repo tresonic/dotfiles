@@ -39,5 +39,10 @@ plugins=(
 )
 
 export EDITOR=hx
+
+APP_PATH="$HOME/Applications"
+export PATH="$APP_PATH/zig-linux-x86_64-0.14.0:$PATH"
+export PATH="$APP_PATH/zls-linux-x86_64-0.14.0:$PATH"
+
 export ZSH="$HOME/.oh-my-zsh"
 source $ZSH/oh-my-zsh.sh
