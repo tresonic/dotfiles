@@ -39,7 +39,7 @@ add-zsh-hook precmd vcs_info
 zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:git*' formats '%b%u%c %a'
 # Format when the repo is in an action (merge, rebase, etc)
-zstyle ':vcs_info:git*' actionformats '(%*)'
+zstyle ':vcs_info:git:*' actionformats '(%b|%a%u%c)'
 zstyle ':vcs_info:git*' unstagedstr '*'
 zstyle ':vcs_info:git*' stagedstr '+'
 # This enables %u and %c (unstaged/staged changes) to work,
@@ -50,3 +50,8 @@ zstyle ':vcs_info:*:*' check-for-changes true
 eval "$(zoxide init zsh)"
 
 export EDITOR=vim
+export EDITOR=hx
+
+APP_PATH="$HOME/Applications"
+export PATH="$APP_PATH/zig-linux-x86_64-0.14.0:$PATH"
+export PATH="$APP_PATH/zls-linux-x86_64-0.14.0:$PATH"
