@@ -1,12 +1,3 @@
-#  _____    _
-# |__  /___| |__  _ __ ___
-#   / // __| '_ \| '__/ __|
-#  / /_\__ \ | | | | | (__
-# /____|___/_| |_|_|  \___|
-# Aliases for a few useful commands
-#
-ZSH_THEME='robbyrussell'
-
 source $HOME/.aliases
 
 setopt COMPLETE_ALIASES
@@ -29,15 +20,33 @@ promptinit
 bashcompinit
 zstyle :compinstall filename '$HOME/.zshrc'
 
+setopt PROMPT_SUBST
+PROMPT='%F{blue}%~%f %F{red}${vcs_info_msg_0_}%f$ '
+RPROMPT='%F{green}%*%f'
 
-plugins=(
-    colorize
-    git
-    history-substring-search
-    safe-paste
-    virtualenv
-)
+### Build vcs_info_msg
+# Autoload zsh's `add-zsh-hook` and `vcs_info` functions
+# (-U autoload w/o substition, -z use zsh style)
+autoload -Uz add-zsh-hook vcs_info
 
-export EDITOR=hx
-export ZSH="$HOME/.oh-my-zsh"
-source $ZSH/oh-my-zsh.sh
+# Set prompt substitution so we can use the vcs_info_message variable
+setopt prompt_subst
+
+# Run the `vcs_info` hook to grab git info before displaying the prompt
+add-zsh-hook precmd vcs_info
+
+# Style the vcs_info message
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:git*' formats '%b%u%c %a'
+# Format when the repo is in an action (merge, rebase, etc)
+zstyle ':vcs_info:git*' actionformats '(%*)'
+zstyle ':vcs_info:git*' unstagedstr '*'
+zstyle ':vcs_info:git*' stagedstr '+'
+# This enables %u and %c (unstaged/staged changes) to work,
+# but can be slow on large repos
+zstyle ':vcs_info:*:*' check-for-changes true
+
+# zoxide
+eval "$(zoxide init zsh)"
+
+export EDITOR=vim
