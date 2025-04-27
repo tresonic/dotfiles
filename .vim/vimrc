@@ -16,6 +16,8 @@ Plug 'tpope/vim-commentary'
 Plug 'LunarWatcher/auto-pairs'
 Plug 'bling/vim-bufferline'
 Plug 'junegunn/seoul256.vim'
+
+Plug 'ggml-org/llama.vim'
 call plug#end()
 
 
