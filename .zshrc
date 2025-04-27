@@ -1,5 +1,8 @@
 source $HOME/.aliases
 
+# add scripts dir to path
+export PATH="$HOME/dotfiles/scripts:$PATH"
+
 setopt COMPLETE_ALIASES
 setopt HIST_FIND_NO_DUPS
 setopt HIST_IGNORE_ALL_DUPS
