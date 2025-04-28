@@ -22,6 +22,10 @@ compinit
 promptinit
 bashcompinit
 zstyle :compinstall filename '$HOME/.zshrc'
+zstyle ':completion:*' matcher-list '' \
+  'm:{a-z\-}={A-Z\_}' \
+  'r:[^[:alpha:]]||[[:alpha:]]=** r:|=* m:{a-z\-}={A-Z\_}' \
+  'r:|?=** m:{a-z\-}={A-Z\_}'
 
 setopt PROMPT_SUBST
 PROMPT='%F{blue}%~%f %F{red}${vcs_info_msg_0_}%f$ '
