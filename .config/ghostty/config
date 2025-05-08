@@ -1,9 +1,24 @@
-window-decoration = false
+font-size = 11
+
+window-decoration = server
 window-inherit-working-directory = true
 window-theme = dark
+
+window-height = 24
+window-width = 80
+# not currently supported on linux
 window-save-state = always
 
 keybind = ctrl+shift+h=goto_split:left
 keybind = ctrl+shift+j=goto_split:bottom
 keybind = ctrl+shift+k=goto_split:top
 keybind = ctrl+shift+l=goto_split:right
+
+keybind = ctrl+shift+o=new_split:right
+keybind = ctrl+shift+u=new_split:down
+keybind = ctrl+shift+i=new_split:up
+keybind = ctrl+shift+y=new_split:left
+
+keybind = ctrl+shift+a=close_surface
+
+keybind = global:ctrl+shift+b=toggle_fullscreen
