@@ -41,9 +41,10 @@ set number " hybrid line numbers
 set relativenumber 
 set showmatch " show matching parens
 set diffopt+=iwhite " ignore whitespace in diff mode
-set whichwrap=bs<>[] " Be able to arrow key and backspace across newlines
 set laststatus=2 " Status bar
-set showbreak=>\ \ \  " show '>   ' at the beginning of lines that are automatically wrapped
+" set whichwrap=bs<>[] " Be able to arrow key and backspace across newlines
+" set showbreak=>\ \ \  " show '>   ' at the beginning of lines that are automatically wrapped
+set wrap!
 set tabpagemax=100 " let vim open up to 100 tabs at once
 set wildignorecase " case-insensitive filename completion
 set tabstop=4           " width that a <TAB> character displays as
