@@ -9,8 +9,8 @@ then
 fi
 
 # install packages
-yay -S --needed - < pkglist.txt
+# yay -S --needed - < pkglist.txt
 
 # install oh-my-zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+# sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
