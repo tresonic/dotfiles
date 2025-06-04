@@ -96,7 +96,7 @@ return {
       -- See: `TSInstallInfo` commmand
       ensure_installed = {
         'awk', 'bash', 'c', 'cmake', 'cpp', 'css', 'html', 'javascript', 'json',
-        'lua', 'python', 'rust', 'typescript', 'vim', 'yaml', 'vimdoc', 'luadoc',
+        'lua', 'python', 'rust', 'typescript', 'vim', 'yaml', 'vimdoc', 'luadoc', 'markdown'
       },
       -- Install parsers synchronously (only applied to `ensure_installed`)
       sync_install = false,
