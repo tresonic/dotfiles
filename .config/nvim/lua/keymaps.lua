@@ -10,9 +10,6 @@ local function map(mode, lhs, rhs, opts)
   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
--- Change leader to a comma
-vim.g.mapleader = ','
-
 -----------------------------------------------------------
 -- Neovim shortcuts
 -----------------------------------------------------------
@@ -44,7 +41,7 @@ map('n', 'gp', ':bp<CR>')
 map('n', '<leader>r', ':so %<CR>')
 
 -- Fast saving with <leader> and s
-map('n', '<leader>s', ':w<CR>')
+map('n', '<C-s>', ':w<CR>')
 
 -----------------------------------------------------------
 -- Applications and Plugins shortcuts
@@ -65,16 +62,16 @@ map('n', '<leader>z', ':TagbarToggle<CR>')          -- open/close
 -- Telescope
 local telescope = require('telescope.builtin')
 vim.keymap.set('n', '<leader>f', telescope.find_files, {})
+vim.keymap.set('n', '<leader>b', telescope.buffers, {})
+vim.keymap.set('n', '<leader>g', telescope.live_grep, {})
 
 -- Comment
 require('Comment').setup({
   ignore = '^$',
   toggler = {
-      line = '<leader>cc',
-      block = '<leader>bc',
+      line = '<leader>c',
   },
   opleader = {
       line = '<leader>c',
-      block = '<leader>b',
   },
 })
