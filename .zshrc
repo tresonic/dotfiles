@@ -67,3 +67,4 @@ export PATH="$APP_PATH/zls-linux-x86_64-0.14.0:$PATH"
 
 # ssh agent connection
 export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
+eval `keychain --eval id_ed25519`
