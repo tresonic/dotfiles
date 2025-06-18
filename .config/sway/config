@@ -242,6 +242,31 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
+
+#
+### Screenshot mode:
+#
+set {
+  $screenshot "Screenshot: [s]creen [w]window [r]egion"
+
+  $screenshot-cmd ~/.config/sway/screenshot.sh
+}
+
+mode $screenshot {
+  bindsym --to-code {
+    s mode "default", exec $screenshot-cmd screen
+    w mode "default", exec $screenshot-cmd window
+    r mode "default", exec $screenshot-cmd region
+
+    Return mode "default"
+    Escape mode "default"
+    $mod+x mode "default"
+  }
+}
+
+bindsym --to-code $mod+s mode $screenshot
+
+
 #
 # Status Bar:
 #
