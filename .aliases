@@ -7,6 +7,7 @@ alias tree='l --tree'
 alias ip='ip -color'
 alias ipa='ip -color -brief address'
 alias e='$EDITOR'
+alias n='nvim'
 alias h='htop'
 alias ze='zellij'
 alias trash='send2trash'
@@ -18,7 +19,6 @@ alias mpvp='mpv --really-quiet --mute=yes --loop-playlist'
 
 alias mirrorUpdate='reflector --country de --latest 15 --protocol https --sort rate --save /etc/pacman.d/mirrorlist --verbose'
 alias pacs='pacman -Ss'
-alias paci='sudo pacman -S'
 
 # git aliases
 alias ga='git add'
@@ -56,5 +56,21 @@ function y() {
 		builtin cd -- "$cwd"
 	fi
 	rm -f -- "$tmp"
+}
+
+function c() {
+    if command -v code >/dev/null 2>&1; then
+        code "$@"
+    else
+        codium "$@"
+    fi
+}
+
+function cn() {
+    if command -v code >/dev/null 2>&1; then
+        code --new-window "$@"
+    else
+        codium --new-window "$@"
+    fi
 }
 
