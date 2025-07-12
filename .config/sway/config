@@ -55,6 +55,7 @@ exec wl-paste --watch cliphist store
 input type:touchpad {
     natural_scroll enabled
     tap enabled
+    drag_lock disable
 }
 
 input type:keyboard {
