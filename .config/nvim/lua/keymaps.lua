@@ -14,12 +14,6 @@ end
 -- Neovim shortcuts
 -----------------------------------------------------------
 
--- Disable arrow keys
-map('', '<up>', '<nop>')
-map('', '<down>', '<nop>')
-map('', '<left>', '<nop>')
-map('', '<right>', '<nop>')
-
 -- Clear search highlighting with <leader> and c
 map('n', '<leader>n', ':nohl<CR>')
 
@@ -42,6 +36,10 @@ map('n', '<leader>r', ':so %<CR>')
 
 -- Fast saving with <leader> and s
 map('n', '<C-s>', ':w<CR>')
+
+-- Keeping text selected after indenting
+map('x', '>', '>gv')
+map('x', '<', '<gv')
 
 -----------------------------------------------------------
 -- Applications and Plugins shortcuts
