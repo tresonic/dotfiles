@@ -32,7 +32,7 @@ zstyle ':completion:*' matcher-list '' \
 
 setopt PROMPT_SUBST
 PROMPT='%F{blue}%~%f %F{red}${vcs_info_msg_0_}%f$ '
-RPROMPT='%F{green}%*%f'
+# RPROMPT='%F{green}%*%f'
 
 ### Build vcs_info_msg
 # Autoload zsh's `add-zsh-hook` and `vcs_info` functions
