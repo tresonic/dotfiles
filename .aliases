@@ -1,5 +1,5 @@
 # ls
-alias l='eza -1A --group-directories-first --color=always --git-ignore'
+alias l='eza -1A --group-directories-first --color=always'
 alias ls='l'
 alias la='l -l --time-style="+%Y-%m-%d %H:%M" --no-permissions --octal-permissions'
 alias tree='l --tree'
