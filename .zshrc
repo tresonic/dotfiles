@@ -57,6 +57,10 @@ zstyle ':vcs_info:git*' stagedstr '+'
 # but can be slow on large repos
 zstyle ':vcs_info:*:*' check-for-changes true
 
+# suspend and resume with ctrl-z
+stty susp undef
+bindkey -s '^Z' 'fg\n'
+
 # zoxide
 eval "$(zoxide init zsh)"
 
