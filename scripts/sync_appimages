@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+set -e
 
 APPIMAGE_DIR="$HOME/Applications"
 APPIMAGE_ICON_DIR="$APPIMAGE_DIR/icons"
@@ -21,6 +23,12 @@ if [[ "$1" == "--clean" ]]; then
     exit 0
 fi
 
+# Check dependencies
+if ! command -v 7z &>/dev/null; then
+    echo "Error: 7z not found. Install p7zip-full or p7zip."
+    exit 1
+fi
+
 declare -A valid_apps
 
 for appimage in "$APPIMAGE_DIR"/*.AppImage; do
@@ -29,37 +37,66 @@ for appimage in "$APPIMAGE_DIR"/*.AppImage; do
     echo "Processing: $appimage"
     chmod +x "$appimage"
 
+    filename=$(basename "$appimage")
     tmpdir=$(mktemp -d)
-    pushd "$tmpdir" > /dev/null
+    cd "$tmpdir" || continue
 
-    if "$appimage" --appimage-extract > /dev/null 2>&1; then
-        desktop_file_found=$(find squashfs-root -name '*.desktop' | head -n 1)
-        if [ -z "$desktop_file_found" ]; then
-            echo "Warning: No .desktop file found inside $appimage"
-            popd > /dev/null
+    extracted_with_7z=true
+
+    # Try extracting .desktop file using 7z
+    if ! 7z e "$appimage" -aoa -y -r -o"$tmpdir" "*.desktop" &>/dev/null; then
+        echo "7z failed, falling back to --appimage-extract"
+        extracted_with_7z=false
+        "$appimage" --appimage-extract &>/dev/null || {
+            echo "Failed to extract with --appimage-extract: $filename"
+            cd /
             rm -rf "$tmpdir"
             continue
+        }
+        cd squashfs-root || continue
+    fi
+
+    desktop_file=$(find . -name '*.desktop' | head -n 1)
+    if [ -z "$desktop_file" ]; then
+        echo "No .desktop file found in $filename"
+        cd /
+        rm -rf "$tmpdir"
+        continue
+    fi
+
+    name=$(grep -m 1 "^Name=" "$desktop_file" | cut -d= -f2-)
+    exec_command=$(grep -m 1 "^Exec=" "$desktop_file" | cut -d= -f2-)
+    icon_name=$(grep -m 1 "^Icon=" "$desktop_file" | cut -d= -f2-)
+    categories=$(grep -m 1 "^Categories=" "$desktop_file" | cut -d= -f2-)
+
+    [ -z "$name" ] && name=$(basename "$appimage" .AppImage)
+    [ -z "$exec_command" ] && exec_command="$appimage"
+
+    # Icon extraction (works both for 7z and fallback)
+    icon_path=""
+    if [ -n "$icon_name" ]; then
+        if $extracted_with_7z; then
+            icon_file_path=$(7z l "$appimage" | awk '{print $NF}' | grep -i "/$icon_name.png$" | head -n 1)
+            if [ -n "$icon_file_path" ]; then
+                7z e "$appimage" "$icon_file_path" -aoa -y -o"$tmpdir" &>/dev/null
+                if [ -f "$(basename "$icon_file_path")" ]; then
+                    icon_path="$APPIMAGE_ICON_DIR/$icon_name.png"
+                    cp "$(basename "$icon_file_path")" "$icon_path"
+                fi
+            fi
+        else
+            icon_file=$(find . -iname "$icon_name.png" | head -n 1)
+            if [ -f "$icon_file" ]; then
+                icon_path="$APPIMAGE_ICON_DIR/$icon_name.png"
+                cp "$icon_file" "$icon_path"
+            fi
         fi
+    fi
 
-        name=$(grep -m 1 "^Name=" "$desktop_file_found" | cut -d= -f2-)
-        exec_command=$(grep -m 1 "^Exec=" "$desktop_file_found" | cut -d= -f2-)
-        icon_name=$(grep -m 1 "^Icon=" "$desktop_file_found" | cut -d= -f2-)
-        categories=$(grep -m 1 "^Categories=" "$desktop_file_found" | cut -d= -f2-)
+    desktop_target="$DESKTOP_DIR/${name// /_}.desktop"
+    valid_apps["$desktop_target"]=1
 
-        icon_path="$APPIMAGE_ICON_DIR/$icon_name.png"
-        icon_file_found=$(find squashfs-root -iname "$icon_name.png" | head -n 1)
-        if [ -n "$icon_file_found" ]; then
-            cp "$icon_file_found" "$icon_path"
-        fi
-        [ -f "$icon_path" ] || icon_path=""
-
-        [ -z "$name" ] && name=$(basename "$appimage" .AppImage)
-        [ -z "$exec_command" ] && exec_command="$appimage"
-
-        desktop_target="$DESKTOP_DIR/${name// /_}.desktop"
-        valid_apps["$desktop_target"]=1
-
-        cat > "$desktop_target" <<EOF
+    cat > "$desktop_target" <<EOF
 [Desktop Entry]
 Name=$name
 Exec=$appimage
@@ -70,16 +107,13 @@ Categories=${categories:-Utility};
 X-AppImage-Sync=$DESKTOP_TAG
 EOF
 
-        echo "Created or updated: $desktop_target"
-    else
-        echo "Error: Could not extract $appimage"
-    fi
+    echo "Created or updated: $desktop_target"
 
-    popd > /dev/null
+    cd /
     rm -rf "$tmpdir"
 done
 
-# Remove orphaned desktop files
+# Remove orphaned .desktop files
 for desktop in "$DESKTOP_DIR"/*.desktop; do
     if grep -q "X-AppImage-Sync=$DESKTOP_TAG" "$desktop"; then
         if [ -z "${valid_apps["$desktop"]}" ]; then
@@ -90,4 +124,3 @@ for desktop in "$DESKTOP_DIR"/*.desktop; do
 done
 
 echo "Done syncing AppImages."
-
