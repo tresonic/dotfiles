@@ -1,0 +1,93 @@
+#!/bin/bash
+
+APPIMAGE_DIR="$HOME/Applications"
+APPIMAGE_ICON_DIR="$APPIMAGE_DIR/icons"
+DESKTOP_DIR="$HOME/.local/share/applications"
+DESKTOP_TAG="AppImageSync"
+
+mkdir -p "$DESKTOP_DIR"
+mkdir -p "$APPIMAGE_ICON_DIR"
+
+# Handle --clean option
+if [[ "$1" == "--clean" ]]; then
+    echo "Cleaning all .desktop files created by this script..."
+    for desktop in "$DESKTOP_DIR"/*.desktop; do
+        if grep -q "X-AppImage-Sync=$DESKTOP_TAG" "$desktop"; then
+            rm -f "$desktop"
+            echo "Removed: $desktop"
+        fi
+    done
+    echo "Cleanup complete."
+    exit 0
+fi
+
+declare -A valid_apps
+
+for appimage in "$APPIMAGE_DIR"/*.AppImage; do
+    [ -e "$appimage" ] || continue
+
+    echo "Processing: $appimage"
+    chmod +x "$appimage"
+
+    tmpdir=$(mktemp -d)
+    pushd "$tmpdir" > /dev/null
+
+    if "$appimage" --appimage-extract > /dev/null 2>&1; then
+        desktop_file_found=$(find squashfs-root -name '*.desktop' | head -n 1)
+        if [ -z "$desktop_file_found" ]; then
+            echo "Warning: No .desktop file found inside $appimage"
+            popd > /dev/null
+            rm -rf "$tmpdir"
+            continue
+        fi
+
+        name=$(grep -m 1 "^Name=" "$desktop_file_found" | cut -d= -f2-)
+        exec_command=$(grep -m 1 "^Exec=" "$desktop_file_found" | cut -d= -f2-)
+        icon_name=$(grep -m 1 "^Icon=" "$desktop_file_found" | cut -d= -f2-)
+        categories=$(grep -m 1 "^Categories=" "$desktop_file_found" | cut -d= -f2-)
+
+        icon_path="$APPIMAGE_ICON_DIR/$icon_name.png"
+        icon_file_found=$(find squashfs-root -iname "$icon_name.png" | head -n 1)
+        if [ -n "$icon_file_found" ]; then
+            cp "$icon_file_found" "$icon_path"
+        fi
+        [ -f "$icon_path" ] || icon_path=""
+
+        [ -z "$name" ] && name=$(basename "$appimage" .AppImage)
+        [ -z "$exec_command" ] && exec_command="$appimage"
+
+        desktop_target="$DESKTOP_DIR/${name// /_}.desktop"
+        valid_apps["$desktop_target"]=1
+
+        cat > "$desktop_target" <<EOF
+[Desktop Entry]
+Name=$name
+Exec=$appimage
+Icon=$icon_path
+Type=Application
+Terminal=false
+Categories=${categories:-Utility};
+X-AppImage-Sync=$DESKTOP_TAG
+EOF
+
+        echo "Created or updated: $desktop_target"
+    else
+        echo "Error: Could not extract $appimage"
+    fi
+
+    popd > /dev/null
+    rm -rf "$tmpdir"
+done
+
+# Remove orphaned desktop files
+for desktop in "$DESKTOP_DIR"/*.desktop; do
+    if grep -q "X-AppImage-Sync=$DESKTOP_TAG" "$desktop"; then
+        if [ -z "${valid_apps["$desktop"]}" ]; then
+            rm -f "$desktop"
+            echo "Removed orphaned: $desktop"
+        fi
+    fi
+done
+
+echo "Done syncing AppImages."
+
