@@ -9,6 +9,7 @@ return {
       servers = {
         lua_ls = {},
         clangd = {},
+        rust_analyzer = {},
       }
     },
     config = function(_, opts)
