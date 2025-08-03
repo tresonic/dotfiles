@@ -8,7 +8,12 @@ return {
     opts = {
       servers = {
         lua_ls = {},
-        clangd = {},
+        clangd = {
+            cmd = {
+              "clangd",
+              "--query-driver=**"
+            },
+        },
       }
     },
     config = function(_, opts)
