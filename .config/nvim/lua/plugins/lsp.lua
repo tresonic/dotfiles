@@ -8,6 +8,7 @@ return {
     opts = {
       servers = {
         lua_ls = {},
+        rust_analyzer = {},
         clangd = {
             cmd = {
               "clangd",
