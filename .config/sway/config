@@ -38,8 +38,13 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 # Example configuration:
 #
 exec swayidle -w \
-         timeout 120 'systemctl suspend' \
+         timeout 120  'swaylock -f -c 000000' \
+         timeout 300 'systemctl suspend' \
          before-sleep 'swaylock -f -c 000000'
+
+# exec swayidle -w \
+#          timeout 120 'systemctl suspend' \
+#          before-sleep 'swaylock -f -c 000000'
          # timeout 300 'swaylock -f -c 000000'\
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
@@ -50,7 +55,7 @@ exec swayidle -w \
 exec mako
 
 # cliphist for clipboard history
-exec wl-paste --watch cliphist store
+exec wl-paste --watch cliphist-filter
 
 input type:touchpad {
     natural_scroll enabled
@@ -208,6 +213,10 @@ input type:keyboard {
     ## Screen // Brightness Down // 🔅 ##
     bindsym --locked XF86MonBrightnessDown exec brightnessctl set 10%- -e 3
     bindsym --locked XF86MonBrightnessUp   exec brightnessctl set +10% -e 3
+
+    bindsym --locked $mod+slash exec playerctl play-pause
+    bindsym --locked $mod+period exec playerctl previous
+    bindsym --locked $mod+comma exec playerctl next
 
 
     # Window assignments

@@ -70,9 +70,9 @@ APP_PATH="$HOME/Applications"
 export PATH="$APP_PATH/zig-x86_64-linux-0.14.1:$PATH"
 export PATH="$APP_PATH/zls-linux-x86_64-0.14.0:$PATH"
 
-# ssh agent connection
+# ssh agent connection, start ssh-agent through systemd
+# with systemctl --user enable ssh-agent.service
 export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
-# use keychain if available
-if command -v keychain &> /dev/null; then
-    eval "$(keychain --eval id_ed25519)"
-fi
+
+# make sure dark theme is set
+$HOME/.config/sway/dark.sh
