@@ -54,8 +54,10 @@ exec swayidle -w \
 # mako for notifications
 exec mako
 
-# cliphist for clipboard history
-exec wl-paste --watch cliphist-filter
+# cliphist for clipboard history with custom filter
+exec wl-paste --watch filter-cliphist
+
+exec keepassxc
 
 input type:touchpad {
     natural_scroll enabled
@@ -220,7 +222,7 @@ input type:keyboard {
 
 
     # Window assignments
-    assign [instance="keepassxc"] workspace 10
+    assign [app_id="keepassxc"] workspace 10
     assign [instance="signal"] workspace 9
 
 #

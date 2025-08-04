@@ -1,7 +1,5 @@
 source $HOME/.aliases
 
-# add scripts dir to path
-export PATH="$HOME/dotfiles/scripts:$PATH"
 
 setopt COMPLETE_ALIASES
 setopt HIST_FIND_NO_DUPS
@@ -64,15 +62,6 @@ bindkey -s '^Z' 'fg\n'
 # zoxide
 eval "$(zoxide init zsh)"
 
-export EDITOR=vim
-
-APP_PATH="$HOME/Applications"
-export PATH="$APP_PATH/zig-x86_64-linux-0.14.1:$PATH"
-export PATH="$APP_PATH/zls-linux-x86_64-0.14.0:$PATH"
-
-# ssh agent connection, start ssh-agent through systemd
-# with systemctl --user enable ssh-agent.service
-export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
 
 # make sure dark theme is set
 $HOME/.config/sway/dark.sh
