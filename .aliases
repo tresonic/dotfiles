@@ -74,3 +74,17 @@ function cn() {
     fi
 }
 
+# Function to search and install packages using pacman
+pacf() {
+	pacman -Slq | fzf --multi --preview 'pacman -Si {1}' | xargs -ro sudo pacman -S
+}
+
+# Function to search and install packages using yay
+yayf() {
+	yay -Slq | fzf --multi --preview 'yay -Si {1}' | xargs -ro yay -S
+}
+
+# Function to search and remove packages using pacman
+pacrm() {
+	pacman -Qq | fzf --multi --preview 'pacman -Qi {1}' | xargs -ro sudo pacman -Rns
+}
