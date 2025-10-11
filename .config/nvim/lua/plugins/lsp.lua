@@ -15,6 +15,7 @@ return {
               "--query-driver=**"
             },
         },
+        -- zls = {},
       }
     },
     config = function(_, opts)
@@ -76,6 +77,17 @@ return {
     },
     dependencies = {
       { "mason-org/mason.nvim", opts = {} },
+      "neovim/nvim-lspconfig",
+    },
+  },
+  {
+    "jinzhongjia/zig-lamp",
+    event = "VeryLazy",
+    -- Optional but recommended: build the local FFI lib to enable faster/safer verification & formatting
+    build = ":ZigLampBuild async",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      -- For Neovim < 0.11 you’ll likely want lspconfig
       "neovim/nvim-lspconfig",
     },
   }
