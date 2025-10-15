@@ -13,7 +13,7 @@ alias ze='zellij'
 alias trash='send2trash'
 
 alias tv='$EDITOR ~/Sync/shows.txt'
-alias cds='cd ~/Sync/stud/sem6/'
+alias cds='cd ~/Sync/stud/sem7/'
 alias updgr='apt update && apt upgrade && apt autoremove'
 alias mpvp='mpv --really-quiet --mute=yes --loop-playlist'
 
