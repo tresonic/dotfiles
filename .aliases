@@ -41,6 +41,9 @@ alias gr='git reset'
 alias gs='git status --short'
 alias gu='git pull'
 
+# quick serial port
+alias sp='tio $(fd . /dev/serial/by-id/ | head -n 1)'
+
 function ytmp3 () { yt-dlp -f 'ba' -x --audio-format mp3 "$@" -o '%(title)s.%(ext)s'; }
 function mkcd () { mkdir -p "$@" && eval cd "\"\$$#\""; }
 
