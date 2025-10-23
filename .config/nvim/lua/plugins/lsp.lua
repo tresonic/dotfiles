@@ -23,8 +23,7 @@ return {
         -- passing config.capabilities to blink.cmp merges with the capabilities in your
         -- `opts[server].capabilities, if you've defined it
         config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
-        vim.lsp.enable(server)
-        vim.lsp.config(server, config)
+        vim.lsp.enable(server, config)
       end
     end
   },
@@ -73,7 +72,7 @@ return {
   {
     "mason-org/mason-lspconfig.nvim",
     opts = {
-      ensure_installed = { "zls", "clangd" },
+      ensure_installed = { "zls", "clangd", "marksman" },
     },
     dependencies = {
       { "mason-org/mason.nvim", opts = {} },
