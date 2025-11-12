@@ -1,6 +1,5 @@
 source $HOME/.aliases
 
-
 setopt COMPLETE_ALIASES
 setopt HIST_FIND_NO_DUPS
 setopt HIST_IGNORE_ALL_DUPS
@@ -63,7 +62,6 @@ bindkey -s '^Z' 'fg\n'
 
 # zoxide
 eval "$(zoxide init zsh)"
-
 
 # make sure dark theme is set
 $HOME/.config/sway/dark.sh
