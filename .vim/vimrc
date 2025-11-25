@@ -151,6 +151,7 @@ vnoremap < <gv
 command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 
 " use commentary.vim with Ctrl+/
+noremap <C-/> :Commentary<CR>
 noremap <leader>c :Commentary<CR>
 
 " buffer switching
