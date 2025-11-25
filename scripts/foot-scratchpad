@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Requires: jq, swaymsg
+APP_ID=foot-scratchpad
+# Toggle existing scratchpad foot
+existing=$(swaymsg -t get_tree | jq -r --arg id "$APP_ID" '.. | select(.app_id?==$id) | .id' | head -n1)
+if [ -n "$existing" ]; then
+  swaymsg "[con_id=$existing]" scratchpad show
+  exit 0
+fi
+# Launch foot with explicit app_id so we can detect it without touching other foot windows
+foot -a "$APP_ID" &
+# Wait for the new window and move it to scratchpad
+for i in {1..30}; do
+  id=$(swaymsg -t get_tree | jq -r --arg id "$APP_ID" '.. | select(.app_id?==$id) | .id' | head -n1)
+  if [ -n "$id" ]; then
+    swaymsg "[con_id=$id]" move scratchpad
+    swaymsg "[con_id=$id]" scratchpad show
+    exit 0
+  fi
+  sleep 0.1
+done
+exit 1
+

@@ -76,6 +76,8 @@ input type:keyboard {
 #
     # Start a terminal
     bindsym $mod+Return exec $term
+    # foot in scratchpad
+    bindsym $mod+grave exec --no-startup-id foot-scratchpad
 
     # Kill focused window
     bindsym $mod+Shift+q kill
@@ -111,7 +113,9 @@ input type:keyboard {
             --background=#D65D0E
 
     bindsym $altmod+l exec swaylock -f -c 000000
-    bindsym $altmod+Shift+l exec systemctl sleep
+
+    bindsym --locked $altmod+Shift+l exec systemctl sleep
+    bindsym --locked Ctrl+Mod4+Home exec systemctl sleep
 
     bindsym $altmod+v exec cliphist list | tofi | cliphist decode | wl-copy
 #
