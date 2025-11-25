@@ -226,7 +226,7 @@ input type:keyboard {
 
 
     # Window assignments
-    assign [app_id="keepassxc"] workspace 10
+    assign [app_id="keepassxc" window_type="normal"] workspace 10
     assign [instance="signal"] workspace 9
 
 #
