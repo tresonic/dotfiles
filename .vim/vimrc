@@ -52,6 +52,7 @@ set expandtab           " convert <TAB> key-presses to spaces
 set shiftwidth=4        " number of spaces to use for each step of (auto)indent
 set softtabstop=4       " backspace after pressing <TAB> will remove up to this many spaces
 set hidden " allow switching buffers without saving
+set belloff=all
 
 " Create the backup and backupf directories if they don't exist
 if !isdirectory(expand('~/.cache/vim/backupf'))
@@ -155,9 +156,12 @@ noremap <C-/> :Commentary<CR>
 noremap <leader>c :Commentary<CR>
 
 " buffer switching
-nnoremap <leader>n :bn<CR>
-nnoremap <leader>p :bp<CR>
-nnoremap <leader>w :bw<CR>
+nnoremap gn :bn<CR>
+nnoremap gp :bp<CR>
+nnoremap gw :bw<CR>
 
 " ctrlp.vim open
 let g:ctrlp_map = "<leader>f"
+
+" search and replace word under cursor
+nnoremap <leader>r :%s/<c-r><c-w>/<c-r><c-w>/gc<c-f>$F/i
