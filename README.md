@@ -1,7 +1,10 @@
 # tresonic's dotfiles
 
 after cloning:
-```
-stow . # install dotfiles
-systemctl --user enable --now ssh-agent.service # enable ssh-agent
+```shell
+# install dotfiles
+stow .
+
+# enable ssh-agent, starting from .profile not possible in sway
+systemctl --user enable --now ssh-agent.service
 ```
