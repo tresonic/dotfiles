@@ -1,8 +1,11 @@
 # dark themes and wayland
-export QT_QPA_PLATFORM=wayland
-export GTK_THEME=Adwaita:dark
-export GTK2_RC_FILES=/usr/share/themes/Adwaita-dark/gtk-2.0/gtkrc
-export QT_STYLE_OVERRIDE=Adwaita-Dark
+if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+    export QT_QPA_PLATFORM=wayland
+    export GTK_THEME=Adwaita:dark
+    export GTK2_RC_FILES=/usr/share/themes/Adwaita-dark/gtk-2.0/gtkrc
+    export QT_STYLE_OVERRIDE=Adwaita-Dark
+fi
+
 
 # add scripts dir to path
 export PATH="$HOME/dotfiles/scripts:$PATH"
