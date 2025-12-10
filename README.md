@@ -1,6 +1,6 @@
 # tresonic's dotfiles
 
-after cloning:
+install:
 ```shell
 # install dotfiles
 stow . --adopt
