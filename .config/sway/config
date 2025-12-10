@@ -216,8 +216,7 @@ bindsym --locked $mod+comma exec playerctl next
 
 
 # Window assignments
-assign [app_id="keepassxc" window_type="normal"] workspace 10
-assign [instance="signal"] workspace 9
+assign [app_id="signal"] workspace 9
 
 #
 # Scratchpad:

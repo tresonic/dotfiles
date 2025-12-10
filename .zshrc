@@ -62,6 +62,3 @@ bindkey -s '^Z' 'fg\n'
 
 # zoxide
 eval "$(zoxide init zsh)"
-
-# make sure dark theme is set
-$HOME/.config/sway/dark.sh
