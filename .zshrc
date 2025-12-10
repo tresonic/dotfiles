@@ -31,7 +31,7 @@ setopt PROMPT_SUBST
 # PROMPT='%F{blue}%~%f %F{red}${vcs_info_msg_0_}%f$ '
 PROMPT='%F{blue}%~%f %f$ '
 if [[ -n $SSH_CONNECTION || -n $SSH_CLIENT ]]; then
-    PROMPT="%n@%m:$PROMPT"
+    PROMPT="%F{green}%n@%m:$PROMPT"
 fi
 
 ### Build vcs_info_msg
