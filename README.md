@@ -21,5 +21,10 @@ sudo systemctl enable lightdm.service
 
 enable wob (floating volume/brightness bar):
 ```shell
-systemctl enable --now --user wob.socket
+sudo systemctl enable --now --user wob.socket
+```
+
+enable syncthing:
+```shell
+sudo systemctl enable --now syncthing@<myuser>.service
 ```
