@@ -28,3 +28,8 @@ enable syncthing:
 ```shell
 sudo systemctl enable --now syncthing@<myuser>.service
 ```
+
+switch to zsh:
+```shell
+chsh -s $(which zsh)
+```
