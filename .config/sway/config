@@ -195,21 +195,14 @@ bindsym --locked XF86AudioPause exec playerctl pause
 bindsym --locked XF86AudioNext exec playerctl next
 bindsym --locked XF86AudioPrev exec playerctl previous
 
-## Media // Volume Up // 🔊 ##
-## Media // Volume Down // 🔉 ##
-## Media // Volume Mute // 🔇 ##
-# @DEFAULT_SINK@ is a useds by pactl to reference the default output, but it might
-# not be the current output.
-# limit to 100% in this awkward way
-bindsym --locked XF86AudioRaiseVolume exec --no-startup-id bash -c "pactl set-sink-volume @DEFAULT_SINK@ +5% && pactl get-sink-volume @DEFAULT_SINK@ | grep -oP '\d+(?=%)' | { read -r vol; if [ \$vol -gt 100 ]; then pactl set-sink-volume @DEFAULT_SINK@ 100%; fi; }"
-bindsym --locked XF86AudioLowerVolume  exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-# Mute is not currently mapped on my external keyboard. I usually use pause instead.
+## Media // Volume Up/Down using external lightvol script
+bindsym --locked XF86AudioRaiseVolume exec lightvol volume inc
+bindsym --locked XF86AudioLowerVolume  exec lightvol volume dec
 bindsym --locked XF86AudioMute         exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 
-## Screen // Brightness Up // 🔆 ##
-## Screen // Brightness Down // 🔅 ##
-bindsym --locked XF86MonBrightnessDown exec brightnessctl set 10%- -e 3
-bindsym --locked XF86MonBrightnessUp   exec brightnessctl set +10% -e 3
+## Screen // Brightness Up/Down using external lightvol script
+bindsym --locked XF86MonBrightnessDown exec lightvol brightness dec
+bindsym --locked XF86MonBrightnessUp   exec lightvol brightness inc
 
 bindsym --locked $mod+slash exec playerctl play-pause
 bindsym --locked $mod+period exec playerctl previous

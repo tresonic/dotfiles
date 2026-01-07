@@ -18,3 +18,8 @@ enable lightdm:
 ```shell
 sudo systemctl enable lightdm.service
 ```
+
+enable wob (floating volume/brightness bar):
+```shell
+systemctl enable --now --user wob.socket
+```

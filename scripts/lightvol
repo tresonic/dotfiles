@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+
+VOL_STEP=5
+LIGHT_STEP=10
+WOB_SOCKET="$XDG_RUNTIME_DIR/wob.sock"
+
+usage() {
+  echo "Usage: $0 {volume|brightness} {inc|dec}"
+  exit 1
+}
+
+[ "$#" -ne 2 ] && usage
+
+TARGET="$1"
+ACTION="$2"
+
+send_wob() {
+  echo "$1" > "$WOB_SOCKET"
+}
+
+case "$TARGET" in
+  volume)
+    case "$ACTION" in
+      inc)
+        pactl set-sink-volume @DEFAULT_SINK@ +${VOL_STEP}%
+        ;;
+      dec)
+        pactl set-sink-volume @DEFAULT_SINK@ -${VOL_STEP}%
+        ;;
+      *)
+        usage
+        ;;
+    esac
+
+    # clamp + read volume
+    VOL=$(pactl get-sink-volume @DEFAULT_SINK@ \
+      | grep -oP '\d+(?=%)' | head -n1)
+
+    if [ "$VOL" -gt 100 ]; then
+      pactl set-sink-volume @DEFAULT_SINK@ 100%
+      VOL=100
+    fi
+
+    send_wob "$VOL"
+    ;;
+
+  brightness)
+    case "$ACTION" in
+      inc)
+        brightnessctl set +${LIGHT_STEP}%
+        ;;
+      dec)
+        brightnessctl set ${LIGHT_STEP}%-
+        ;;
+      *)
+        usage
+        ;;
+    esac
+
+    # read brightness percentage
+    BRIGHT=$(brightnessctl -m | cut -d',' -f4 | tr -d '%')
+    send_wob "$BRIGHT"
+    ;;
+
+  *)
+    usage
+    ;;
+esac
+

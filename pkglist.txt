@@ -122,6 +122,7 @@ wireless_tools
 wireplumber
 wireshark-qt
 wl-clipboard
+wob
 wpa_supplicant
 xdg-desktop-portal-gtk
 xdg-utils
