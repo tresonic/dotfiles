@@ -1,17 +1,7 @@
-adwaita-qt5-git
-adwaita-qt6-git
-archlinux-themes-sddm
 ausweisapp2
-gnome-themes-extra-gtk2
 librewolf-bin
 light
-otf-font-awesome-4
-qlog-git
-sioyek
 tio
 tofi
-ttf-font-awesome-4
 visual-studio-code-bin
 vscodium-bin
-xf86-video-vmware
-yay-bin
