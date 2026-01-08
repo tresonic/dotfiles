@@ -1,33 +1,44 @@
 return {
   -- LSP
+  -- {
+  --   'neovim/nvim-lspconfig',
+  --   dependencies = { 'saghen/blink.cmp' },
+
+  --   -- example using `opts` for defining servers
+  --   opts = {
+  --     servers = {
+  --       lua_ls = {},
+  --       rust_analyzer = {},
+  --       clangd = {
+  --           cmd = {
+  --             "clangd",
+  --             "--query-driver=**"
+  --           },
+  --       },
+  --       -- zls = {}, -- managed by zig-lamp
+  --     }
+  --   },
+  --   config = function(_, opts)
+  --     for server, config in pairs(opts.servers) do
+  --       -- passing config.capabilities to blink.cmp merges with the capabilities in your
+  --       -- `opts[server].capabilities, if you've defined it
+  --       config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
+  --       vim.lsp.config(server) = config
+  --       vim.lsp.enable(server)
+  --     end
+  --   end
+  -- },
+
   {
-    'neovim/nvim-lspconfig',
-    dependencies = { 'saghen/blink.cmp' },
-
-    -- example using `opts` for defining servers
+    "mason-org/mason-lspconfig.nvim",
     opts = {
-      servers = {
-        lua_ls = {},
-        rust_analyzer = {},
-        clangd = {
-            cmd = {
-              "clangd",
-              "--query-driver=**"
-            },
-        },
-        -- zls = {}, -- managed by zig-lamp
-      }
+      ensure_installed = { "zls", "clangd", "marksman" },
     },
-    config = function(_, opts)
-      for server, config in pairs(opts.servers) do
-        -- passing config.capabilities to blink.cmp merges with the capabilities in your
-        -- `opts[server].capabilities, if you've defined it
-        config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
-        vim.lsp.enable(server, config)
-      end
-    end
+    dependencies = {
+      { "mason-org/mason.nvim", opts = {} },
+      "neovim/nvim-lspconfig",
+    },
   },
-
   {
     'saghen/blink.cmp',
     dependencies = { 'rafamadriz/friendly-snippets' }, -- optional: provides snippets for the snippet source
@@ -69,25 +80,15 @@ return {
     },
     opts_extend = { "sources.default" }
   },
-  {
-    "mason-org/mason-lspconfig.nvim",
-    opts = {
-      ensure_installed = { "zls", "clangd", "marksman" },
-    },
-    dependencies = {
-      { "mason-org/mason.nvim", opts = {} },
-      "neovim/nvim-lspconfig",
-    },
-  },
-  {
-    "jinzhongjia/zig-lamp",
-    event = "VeryLazy",
-    -- Optional but recommended: build the local FFI lib to enable faster/safer verification & formatting
-    build = ":ZigLampBuild async",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      -- For Neovim < 0.11 you’ll likely want lspconfig
-      "neovim/nvim-lspconfig",
-    },
-  }
+  -- {
+  --   "jinzhongjia/zig-lamp",
+  --   event = "VeryLazy",
+  --   -- Optional but recommended: build the local FFI lib to enable faster/safer verification & formatting
+  --   build = ":ZigLampBuild async",
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --     -- For Neovim < 0.11 you’ll likely want lspconfig
+  --     "neovim/nvim-lspconfig",
+  --   },
+  -- }
 }
