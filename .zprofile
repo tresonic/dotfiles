@@ -1,7 +1,7 @@
 # dark themes and wayland
 if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
     export QT_QPA_PLATFORM=wayland
-    export QT_QPA_PLATFORMTHEME=qt5ct
+    # export QT_QPA_PLATFORMTHEME=qt5ct
     export GTK2_RC_FILES=/usr/share/themes/Adwaita-dark/gtk-2.0/gtkrc
     # export QT_STYLE_OVERRIDE=Adwaita-Dark
 
