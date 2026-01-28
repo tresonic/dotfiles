@@ -33,3 +33,13 @@ switch to zsh:
 ```shell
 chsh -s $(which zsh)
 ```
+
+add udevmon config file for mapping caps to esc and ctrl with interception-caps2esc
+```yaml
+# /etc/interception/udevmon.d/caps2esc.yml
+- JOB: intercept -g $DEVNODE | caps2esc | uinput -d $DEVNODE
+  DEVICE:
+    EVENTS:
+      EV_KEY: [KEY_CAPSLOCK, KEY_ESC]
+```
+also enable `udevmon.service`

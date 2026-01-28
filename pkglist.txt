@@ -37,6 +37,7 @@ impala
 inetutils
 intel-media-driver
 intel-ucode
+interception-caps2esc
 isync
 iwd
 jdk-openjdk
