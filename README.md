@@ -2,6 +2,7 @@
 
 install:
 ```shell
+mkdir -p ~/.config
 # install dotfiles
 stow . --adopt
 
