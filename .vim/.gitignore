@@ -1,4 +1,7 @@
 autoload
 plugged
+ftdetect
+ftplugin
+syntax
 
 .netrwhist

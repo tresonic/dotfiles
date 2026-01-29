@@ -108,9 +108,10 @@ set smartindent
 """""""""
 
 syntax enable
-set background=dark
-let g:seoul256_background = 236
-colorscheme seoul256
+" set background=dark
+" let g:seoul256_background = 236
+" colorscheme seoul256
+colorscheme habamax
 
 
 """""""""""""""""""""
