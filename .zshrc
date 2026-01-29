@@ -1,4 +1,4 @@
-source $HOME/.aliases
+source $HOME/.aliases.sh
 
 setopt COMPLETE_ALIASES
 setopt HIST_FIND_NO_DUPS

@@ -17,9 +17,6 @@ alias cds='cd ~/Sync/stud/sem7/'
 alias updgr='apt update && apt upgrade && apt autoremove'
 alias mpvp='mpv --really-quiet --mute=yes --loop-playlist'
 
-alias mirrorUpdate='reflector --country de --latest 15 --protocol https --sort rate --save /etc/pacman.d/mirrorlist --verbose'
-alias pacs='pacman -Ss'
-
 # git aliases
 alias ga='git add'
 alias gap='ga --patch'
