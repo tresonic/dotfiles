@@ -53,6 +53,7 @@ set shiftwidth=4        " number of spaces to use for each step of (auto)indent
 set softtabstop=4       " backspace after pressing <TAB> will remove up to this many spaces
 set hidden " allow switching buffers without saving
 set belloff=all
+set termguicolors " allow setting cursor to beam and block
 
 " Create the backup and backupf directories if they don't exist
 if !isdirectory(expand('~/.cache/vim/backupf'))
@@ -70,8 +71,13 @@ autocmd BufReadPost *
 
 
 " cursorline in insert mode
-:autocmd InsertEnter * set cursorline
-:autocmd InsertLeave * set nocursorline
+autocmd InsertEnter * set cursorline
+autocmd InsertLeave * set nocursorline
+
+" Normal mode: Block cursor
+let &t_SI = "\e[6 q"  " SI = Start Insert mode (beam)
+let &t_EI = "\e[2 q"  " EI = End Insert mode (block)
+
 
 """""""""""""
 " Searching "
