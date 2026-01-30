@@ -1,8 +1,8 @@
-# tresonic's dotfiles
+# dotfiles
 
 install:
 ```shell
-mkdir -p ~/.config
+mkdir -p ~/.config ~/.vim
 # install dotfiles
 stow . --adopt
 
