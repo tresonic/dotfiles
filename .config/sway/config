@@ -206,9 +206,9 @@ bindsym --locked XF86AudioMute         exec pactl set-sink-mute @DEFAULT_SINK@ t
 bindsym --locked XF86MonBrightnessDown exec lightvol brightness dec
 bindsym --locked XF86MonBrightnessUp   exec lightvol brightness inc
 
-bindsym --locked $mod+slash exec playerctl play-pause
-bindsym --locked $mod+period exec playerctl previous
-bindsym --locked $mod+comma exec playerctl next
+bindsym --locked $mod+slash exec playerctl -p firefox play-pause
+bindsym --locked $mod+comma exec playerctl -p firefox previous
+bindsym --locked $mod+period exec playerctl -p firefox next
 
 
 # Window assignments
