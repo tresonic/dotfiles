@@ -1,6 +1,5 @@
 source $HOME/.aliases.sh
 
-setopt COMPLETE_ALIASES
 setopt HIST_FIND_NO_DUPS
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_IGNORE_SPACE
@@ -27,6 +26,7 @@ zstyle ':completion:*' matcher-list '' \
   'r:[^[:alpha:]]||[[:alpha:]]=** r:|=* m:{a-z\-}={A-Z\_}' \
   'r:|?=** m:{a-z\-}={A-Z\_}'
 
+
 setopt PROMPT_SUBST
 # PROMPT='%F{blue}%~%f %F{red}${vcs_info_msg_0_}%f$ '
 PROMPT='%F{blue}%~%f %f$ '
@@ -40,7 +40,7 @@ fi
 # autoload -Uz add-zsh-hook vcs_info
 
 # Set prompt substitution so we can use the vcs_info_message variable
-setopt prompt_subst
+# setopt prompt_subst
 
 # Run the `vcs_info` hook to grab git info before displaying the prompt
 # VCS DISABLE
