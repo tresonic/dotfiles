@@ -38,6 +38,27 @@ alias gr='git reset'
 alias gs='git status --short'
 alias gu='git pull'
 
+# systemd aliases
+# Base
+alias sc=systemctl
+alias scu='systemctl --user'
+
+# Subcommands
+alias scst='sudo systemctl start'
+alias scsp='sudo systemctl stop'
+alias scrl='sudo systemctl reload'
+alias scrt='sudo systemctl restart'
+alias sce='sudo systemctl enable'
+alias scd='sudo systemctl disable'
+
+alias scs='systemctl status'
+alias scsw='systemctl show'
+alias sclu='systemctl list-units'
+alias scluf='systemctl list-unit-files'
+alias sclt='systemctl list-timers'
+alias scc='systemctl cat'
+alias scie='systemctl is-enabled'
+
 # quick serial port
 alias sp='tio $(fd . /dev/serial/by-id/ | head -n 1)'
 
