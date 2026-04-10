@@ -16,6 +16,8 @@ alias tv='$EDITOR ~/Sync/shows.txt'
 alias cds='cd ~/Sync/stud/sem7/'
 alias updgr='apt update && apt upgrade && apt autoremove'
 alias mpvp='mpv --really-quiet --mute=yes --loop-playlist'
+alias mpvp9='mpv --really-quiet --mute=yes --loop-playlist --video-rotate=90'
+alias mpvp27='mpv --really-quiet --mute=yes --loop-playlist --video-rotate=270'
 
 # git aliases
 alias ga='git add'
