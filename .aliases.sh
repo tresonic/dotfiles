@@ -6,7 +6,7 @@ if command -v eza >/dev/null 2>&1; then
   alias tree='l --tree'
 else
   alias l='ls -1A --color=auto'
-  alias ls='l'
+  alias ls='ls -1A --color=auto'
   alias la='ls -lA --time-style="+%Y-%m-%d %H:%M"'
   alias tree='ls -R'
 fi
