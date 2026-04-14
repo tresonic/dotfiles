@@ -1,8 +1,15 @@
 # ls
-alias l='eza -1A --group-directories-first --color=always'
-alias ls='l'
-alias la='l -l --time-style="+%Y-%m-%d %H:%M" --no-permissions --octal-permissions'
-alias tree='l --tree'
+if command -v eza >/dev/null 2>&1; then
+  alias l='eza -1A --group-directories-first --color=always'
+  alias ls='l'
+  alias la='l -l --time-style="+%Y-%m-%d %H:%M" --no-permissions --octal-permissions'
+  alias tree='l --tree'
+else
+  alias l='ls -1A --color=auto'
+  alias ls='l'
+  alias la='ls -lA --time-style="+%Y-%m-%d %H:%M"'
+  alias tree='ls -R'
+fi
 
 alias ip='ip -color'
 alias ipa='ip -color -brief address'
@@ -13,7 +20,7 @@ alias ze='zellij'
 alias trash='send2trash'
 
 alias tv='$EDITOR ~/Sync/shows.txt'
-alias cds='cd ~/Sync/stud/sem7/'
+alias cds='cd ~/Sync/master/sem1/'
 alias updgr='apt update && apt upgrade && apt autoremove'
 alias mpvp='mpv --really-quiet --mute=yes --loop-playlist'
 alias mpvp9='mpv --really-quiet --mute=yes --loop-playlist --video-rotate=90'
