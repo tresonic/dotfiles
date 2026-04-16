@@ -26,6 +26,10 @@ alias mpvp='mpv --really-quiet --mute=yes --loop-playlist'
 alias mpvp9='mpv --really-quiet --mute=yes --loop-playlist --video-rotate=90'
 alias mpvp27='mpv --really-quiet --mute=yes --loop-playlist --video-rotate=270'
 
+alias usbmount='udisksctl mount -b /dev/sda1'
+alias usbunmount='udisksctl unmount -b /dev/sda1'
+alias usbpoweroff='udisksctl power-off -b /dev/sda1'
+
 # git aliases
 alias ga='git add'
 alias gap='ga --patch'
