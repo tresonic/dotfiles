@@ -1,4 +1,5 @@
 # dotfiles
+clone to `~/dotfiles`
 
 install:
 ```shell
