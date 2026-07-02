@@ -19,7 +19,7 @@ export PATH="$HOME/.local/bin:$PATH"
 # apps
 APP_PATH="$HOME/Applications"
 export PATH="$APP_PATH:$PATH"
-export PATH="$APP_PATH/zig-x86_64-linux-0.15.1:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 
 export EDITOR=vim
 
