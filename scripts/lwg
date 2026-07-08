@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+set -eux
+
+if [ "$#" -ne 2 ]; then
+    echo "Usage: $0 <up|down> <wg_config_name>"
+    exit 1
+fi
+
+ACTION=$1
+PEER=$2
+IFNAME="wg_${PEER}"
+FILE=~/Sync/wg/${IFNAME}.conf
+
+if [ ! -f "$FILE" ]; then
+    echo "WireGuard config file not found: $FILE"
+    exit 1
+fi
+
+
+if [ "$ACTION" = "up" ]; then
+    KEY="$(secret-tool lookup service wireguard peer ${PEER})"
+    if [ -z "$KEY" ]; then
+        echo "No private key found for peer ${PEER}. Please add it to the secret service."
+        exit 1
+    fi
+    KEYFILE="$(mktemp /tmp/wg0.XXXXXX.key)"
+    trap 'rm -f "$KEYFILE"' EXIT
+    echo ${KEY} > ${KEYFILE}
+
+    sudo wg-quick up ${FILE}
+    sudo wg set ${IFNAME} private-key ${KEYFILE}
+    sudo wg show
+elif [ "$ACTION" = "down" ]; then
+    sudo wg-quick down ${FILE}
+else
+    echo "Invalid action. Use 'up' or 'down'."
+    exit 1
+fi
