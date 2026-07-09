@@ -218,6 +218,10 @@ bindsym --locked $mod+period exec playerctl -p firefox next
 # Window assignments
 assign [app_id="signal"] workspace 9
 
+for_window [title="KeePassXC -  Access Request"] move container to workspace current, floating enable
+for_window [title="Unlock Database - KeePassXC"] move container to workspace current, floating enable
+assign [app_id="org.keepassxc.KeePassXC"] workspace 10
+
 #
 # Scratchpad:
 #
