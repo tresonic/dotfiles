@@ -20,12 +20,6 @@ autoload -Uz compinit promptinit bashcompinit
 compinit
 promptinit
 bashcompinit
-zstyle :compinstall filename '$HOME/.zshrc'
-zstyle ':completion:*' matcher-list '' \
-  'm:{a-z\-}={A-Z\_}' \
-  'r:[^[:alpha:]]||[[:alpha:]]=** r:|=* m:{a-z\-}={A-Z\_}' \
-  'r:|?=** m:{a-z\-}={A-Z\_}'
-
 
 setopt PROMPT_SUBST
 # PROMPT='%F{blue}%~%f %F{red}${vcs_info_msg_0_}%f$ '
@@ -60,6 +54,9 @@ fi
 # suspend and resume with ctrl-z
 stty susp undef
 bindkey -s '^Z' 'fg\n'
+
+source <(fzf --zsh)
+bindkey '^R' fzf-history-widget
 
 # zoxide
 eval "$(zoxide init zsh)"
