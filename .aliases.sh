@@ -13,9 +13,9 @@ fi
 
 alias ip='ip -color'
 alias ipa='ip -color -brief address'
-alias e='$EDITOR'
-alias n='nvim'
-alias h='htop'
+alias ed='$EDITOR'
+alias nv='nvim'
+alias ht='htop'
 alias ze='zellij'
 alias trash='send2trash'
 
