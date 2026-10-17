@@ -35,22 +35,20 @@ output * bg ~/dotfiles/bg/artemis2_earth_moon.jpg fill
 
 output eDP-1 scale 1.5
 
+# Desktop setup (2nd monitor vertical to the right)
+output 'Dell Inc. DELL U2518D 3C4YP92SA6SL' pos 0 0
+workspace 1 output 'Dell Inc. DELL U2518D 3C4YP92SA6SL'
+
+output 'Dell Inc. DELL U2518D 3C4YP9B1513L' {
+    transform 270
+    pos 2560 -700
+}
+
 ### Idle configuration
-#
-# Example configuration:
-#
 exec swayidle -w \
          timeout 300  'swaylock -f -c 000000' \
          timeout 320 'systemctl suspend' \
          before-sleep 'swaylock -f -c 000000'
-
-# exec swayidle -w \
-#          timeout 120 'systemctl suspend' \
-#          before-sleep 'swaylock -f -c 000000'
-         # timeout 300 'swaylock -f -c 000000'\
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
-# resumed. It will also lock your screen before your computer goes to sleep.
 
 
 # mako for notifications
@@ -86,6 +84,9 @@ bindsym $mod+Shift+q kill
 
 # Start your launcher
 bindsym $mod+d exec $menu
+
+# audio output switch
+bindsym $mod+o exec audio-output-switch
 
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.
@@ -205,6 +206,9 @@ bindsym --locked XF86AudioPrev exec playerctl previous
 bindsym --locked XF86AudioRaiseVolume exec lightvol volume inc
 bindsym --locked XF86AudioLowerVolume  exec lightvol volume dec
 bindsym --locked XF86AudioMute         exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym --locked $mod+F10 exec lightvol volume inc
+bindsym --locked $mod+F9  exec lightvol volume dec
+bindsym --locked $mod+F11 exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 ## Screen // Brightness Up/Down using external lightvol script
 bindsym --locked XF86MonBrightnessDown exec lightvol brightness dec
