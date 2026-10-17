@@ -18,6 +18,7 @@ alias nv='nvim'
 alias nn='NVIM_APPNAME=nvim_native nvim'
 alias ht='htop'
 alias ze='zellij'
+alias lg='lazygit'
 alias trash='send2trash'
 
 alias tv='$EDITOR ~/Sync/shows.txt'
