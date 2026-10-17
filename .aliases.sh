@@ -124,3 +124,7 @@ yayf() {
 pacrm() {
 	pacman -Qq | fzf --multi --preview 'pacman -Qi {1}' | xargs -ro sudo pacman -Rns
 }
+
+rgui() {
+    (lxqt-policykit-agent &; sleep 0.5; pkexec env WAYLAND_DISPLAY="$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY" XDG_RUNTIME_DIR=/run/user/0 $@)
+}
