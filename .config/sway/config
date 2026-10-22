@@ -116,8 +116,8 @@ bindsym $mod+Shift+e exec swaynag -t warning \
 
 # lock and sleep
 bindsym $altmod+l exec swaylock -f -c 000000
-bindsym --locked $altmod+Shift+l exec systemctl sleep
-bindsym --locked Ctrl+Mod4+Home exec systemctl sleep
+bindsym --release --locked $altmod+Shift+l exec systemctl sleep
+bindsym --release --locked Ctrl+Mod4+Home exec systemctl sleep
 
 bindsym $altmod+v exec cliphist list | tofi | cliphist decode | wl-copy
 
