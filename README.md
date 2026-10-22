@@ -16,6 +16,12 @@ install yay:
 sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si && cd .. && rm -r yay-bin
 ```
 
+install packages:
+```shell
+sudo pacman -S --needed - < pkglist.txt
+yay -S --needed - < pkglist-aur.txt
+```
+
 enable lightdm:
 ```shell
 sudo systemctl enable lightdm.service

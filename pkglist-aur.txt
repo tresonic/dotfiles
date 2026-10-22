@@ -1,6 +1,3 @@
-ausweisapp2
-librewolf-bin
-light
 tio
 tofi
 visual-studio-code-bin
