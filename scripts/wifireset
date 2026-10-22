@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# Stop iwd and disconnect Wi-Fi
+sudo systemctl stop iwd
+
+# Unload the Intel Wi-Fi driver
+sudo modprobe -r iwlmvm iwlwifi
+
+# Reload the driver
+sudo modprobe iwlwifi
+
+# Restart iwd
+sudo systemctl start iwd
