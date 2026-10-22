@@ -60,3 +60,6 @@ bindkey '^R' fzf-history-widget
 
 # zoxide
 eval "$(zoxide init zsh)"
+
+# direnv
+eval "$(direnv hook zsh)"
