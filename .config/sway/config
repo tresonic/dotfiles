@@ -33,11 +33,12 @@ output * bg ~/dotfiles/bg/artemis2_earth_moon.jpg fill
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
-output eDP-1 scale 1.5
+set $lap_screen eDP-1
+output $lap_screen scale 1.5
 
 # Desktop setup (2nd monitor vertical to the right)
 output 'Dell Inc. DELL U2518D 3C4YP92SA6SL' pos 0 0
-workspace 1 output 'Dell Inc. DELL U2518D 3C4YP92SA6SL'
+workspace 1 output 'Dell Inc. DELL U2518D 3C4YP92SA6SL' $lap_screen
 
 output 'Dell Inc. DELL U2518D 3C4YP9B1513L' {
     transform 270
